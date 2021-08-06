@@ -1,0 +1,101 @@
+$tooltip-width: 130px;
+$tooltip-arrow-size: 5px;
+
+.sp-status {
+  position: relative;
+  display: inline-block;
+
+  .sp-status-badge {
+    width: .8em;
+    height: .8em;
+    margin-left: .3em;
+    display: inline-block;
+    border-radius: 50%;
+
+    &.sp-status-ok { background: rgb(52, 200, 0) }
+    &.sp-status-scheduled { background: #2498ec }
+    &.sp-status-minor { background: #fe8000 }
+    &.sp-status-major { background: #ff231f }
+  }
+}
+
+/* Tooltip text */
+.sp-status .sp-tooltip {
+  visibility: hidden;
+  font-size: 12px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  width: $tooltip-width;
+
+  &::after {
+    content: " ";
+    position: absolute;
+    margin-left: -$tooltip-arrow-size;
+    border-width: $tooltip-arrow-size;
+    border-style: solid;
+    color: black;
+  }
+
+  &--top, &--bottom {
+    margin-left: -$tooltip-width/2;
+    left: 50%;
+  }
+
+  &--top {
+    bottom: 120%;
+
+    &::after {
+      top: 100%; /* At the bottom of the tooltip */
+      left: 50%;
+      border-color: black transparent transparent transparent;
+    }
+  }
+
+  &--bottom {
+    top: 120%;
+
+    &::after {
+      top: -$tooltip-arrow-size*2; /* At the bottom of the tooltip */
+      left: 50%;
+      border-color: transparent transparent black transparent;
+    }
+  }
+
+  &--left, &--right {
+    top: 50%;
+    transform: translateY(-50%);
+
+    &::after {
+      top: calc(50% - #{$tooltip-arrow-size});
+      border-color: transparent transparent transparent black;
+    }
+  }
+
+  &--left {
+    right: 105%;
+
+    &::after {
+      left: calc(100% + #{$tooltip-arrow-size});
+      border-color: transparent transparent transparent black;
+    }
+  }
+
+  &--right {
+    left: 105%;
+
+    &::after {
+      right: 100%;
+      border-color: transparent black transparent transparent;
+    }
+  }
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.sp-status:hover .sp-tooltip {
+  visibility: visible;
+}
